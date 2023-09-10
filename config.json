@@ -1,0 +1,9 @@
+{
+    "username" : "John Doe",
+    "template path" : "D:\\Projects\\workflow-assistant\\template.docx",
+    "downloads folder path" : "D:\\Projects\\workflow-assistant\\downloads_folder",
+    "project folder path" : "D:\\Projects\\workflow-assistant\\project_folder",
+    "seven zip key" : "1234",
+    "seven zip path" : "C:\\Program Files\\7-Zip\\7z.exe",
+    "institutions" : ["institution 1", "institution 2", "institution 3"]
+}
