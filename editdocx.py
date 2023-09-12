@@ -19,6 +19,41 @@ class EditDocx:
             self.parsed_edited_document = EditDocx._parse_document(self.edited_document)
             EditDocx._print_dict(self.parsed_edited_document)
     
+    #<w14:checkbox><w14:checked w14:val="0"/><w14:checkedState w14:val="2612" w14:font="MS Gothic"/><w14:uncheckedState w14:val="2610" w14:font="MS Gothic"/></w14:checkbox> 
+    
+    def toggle_checkbox(self, para_index, checkbox_index):
+        # Step 1: Locate the Paragraph
+        paragraph = self.edited_document.paragraphs[para_index]._element
+        
+        # Step 2: Find the Checkbox
+        checkboxes = paragraph.xpath('.//w14:checkbox')
+        if checkbox_index < len(checkboxes):
+            target_checkbox = checkboxes[checkbox_index]
+            
+            # Step 3: Toggle Status
+            checked_element = target_checkbox.find('.//w14:checked', namespaces={'w14': 'http://schemas.microsoft.com/office/word/2010/wordml'})
+            current_val = checked_element.get('{http://schemas.microsoft.com/office/word/2010/wordml}val')
+            
+            # Toggle the value
+            new_val = "1" if current_val == "0" else "0"
+            checked_element.set('{http://schemas.microsoft.com/office/word/2010/wordml}val', new_val)
+            
+            # Locate the common parent <w:sdt> and find the <w:sdtContent> within it
+            common_parent = target_checkbox.getparent().getparent()
+            sdt_content = common_parent.find('.//w:sdtContent', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+            
+            if sdt_content is not None:  
+                run = sdt_content.find('.//w:r', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                text = run.find('.//w:t', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                text.text = "☒" if new_val == "1" else "☐"
+            else:
+                print("sdt_content not found.")
+            
+        else:
+            print("Checkbox index out of range.")
+
+    
+    
     def insert_paragraph(): #will change # of paragraphs and thus affect subsequent document changes
         pass
     
@@ -97,3 +132,15 @@ class EditDocx:
             else:
                 print(value)
                 
+    @staticmethod
+    def _print_docx_document_xml(document, paragraphs_with_checkboxes):
+        for paragraph in document.paragraphs:
+            p = paragraph._element
+            if paragraphs_with_checkboxes:
+                checkBoxes = p.xpath('.//w14:checkbox')
+                if checkBoxes:
+                    print(p.xml)
+                    break
+            else:
+                print(p.xml)
+        
