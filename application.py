@@ -115,7 +115,7 @@ else:
     # take screenshot
     window_c = GenericWindow("Workflow Assistant", 0, None, add_label_and_buttons_to_window_c) 
     image_stream = utils.get_image_from_clipboard_as_stream()
-    edited_doc.insert_image(image_stream,13,width_in_inches=5)    
+    edited_doc.insert_image(image_stream,13,height_in_inches=3)    
     edited_doc.toggle_checkbox(10,1)
 # select institution
 window_d = GenericWindow("workflowAssistant", 0 , None, add_label_and_buttons_to_window_d) 

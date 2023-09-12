@@ -57,9 +57,9 @@ class EditDocx:
     def insert_paragraph(): #will change # of paragraphs and thus affect subsequent document changes
         pass
     
-    def insert_image(self, img_path_or_stream, paragraph_num, width_in_inches): #TODO: allow for width and/or height or NONE
+    def insert_image(self, img_path_or_stream, paragraph_num, height_in_inches): #TODO: allow for width and/or height or NONE
         paragraph = self.edited_document.paragraphs[paragraph_num]
-        paragraph.add_run().add_picture(img_path_or_stream, width=Inches(width_in_inches))
+        paragraph.add_run().add_picture(img_path_or_stream, height=Inches(height_in_inches))
     
     def replace_paragraph_text(self, paragraph_num, text):
         pass
