@@ -20,6 +20,7 @@ class GenericWindow:
     def __init__(self, title, button_count, button_callback, extra_widgets=None):
         self.root = tk.Tk()
         self.root.title(title)
+        self.root.iconbitmap("icon.ico")
         self.center_and_resize_window()
         self.button_count = button_count
         self.button_callback = button_callback
@@ -108,14 +109,14 @@ edited_doc.replace_cell_text_in_table(0,1,1,current_date_string)
 window_a = GenericWindow("Workflow Assistant", 0, None, add_label_and_buttons_to_window_a) 
 SELECTED_INSTITUTION = None
 if AUTOMAP_FLAG:
-    pass #TODO: Toggle yes checkbox
+    edited_doc.toggle_checkbox(10,0)
 else:
     SCREENSHOT_FLAG = False
     # take screenshot
     window_c = GenericWindow("Workflow Assistant", 0, None, add_label_and_buttons_to_window_c) 
     image_stream = utils.get_image_from_clipboard_as_stream()
     edited_doc.insert_image(image_stream,13,width_in_inches=5)    
-    #TODO: Toggle no checkbox
+    edited_doc.toggle_checkbox(10,1)
 # select institution
 window_d = GenericWindow("workflowAssistant", 0 , None, add_label_and_buttons_to_window_d) 
 edited_doc.replace_cell_text_in_table(0,3,1,random.choice(config["institutions"]))
