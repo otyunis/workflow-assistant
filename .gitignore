@@ -9,3 +9,5 @@ __pycache__
 log.txt
 
 application.vbs - Shortcut.lnk
+
+sync_to_shared_folder.ps1
